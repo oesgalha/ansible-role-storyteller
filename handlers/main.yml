@@ -1,2 +1,7 @@
 ---
-# handlers file for storyteller
+- name: restart nginx
+  sudo: yes
+  service: name=nginx state=restarted
+- name: restart php5-fpm
+  sudo: yes
+  service: name=php5-fpm state=restarted

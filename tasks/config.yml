@@ -1,0 +1,38 @@
+- name: "Remove nginx default conf"
+  sudo: yes
+  file: "path=/etc/nginx/{{item}} state=absent"
+  with_items:
+    - sites-available/default
+    - sites-enabled/default
+
+- name: "Copy nginx configuration for wordpress"
+  sudo: yes
+  template: src=nginx.conf dest=/etc/nginx/sites-available/wordpress
+  notify: restart nginx
+
+- name: "Create symlink between sites-available and sites-enabled"
+  sudo: yes
+  file: src=/etc/nginx/sites-available/wordpress dest=/etc/nginx/sites-enabled/wordpress state=link
+
+- name: "Create directory for the unix socket"
+  sudo: yes
+  file: path=/var/run/php5-fpm/ recurse=yes state=directory owner=www-data group=www-data
+
+- name: "Check if the unix sock exists"
+  stat: path=/var/run/php5-fpm/wordpress.sock
+  register: php_sock
+
+- name: "Touch the unix sock"
+  sudo: yes
+  file: path=/var/run/php5-fpm/wordpress.sock state=touch owner=www-data group=www-data
+  notify: restart nginx
+  when: not php_sock.stat.exists
+
+- name: "Disable php5-fpm default config"
+  sudo: yes
+  command: mv /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/www.disabled creates=/etc/php5/fpm/pool.d/www.disabled
+
+- name: "Copy php5-fpm configuration"
+  sudo: yes
+  template: src=php5-fpm.conf dest=/etc/php5/fpm/pool.d/wordpress.conf
+  notify: restart php5-fpm
