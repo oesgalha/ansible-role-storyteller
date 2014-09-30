@@ -2,3 +2,4 @@
 - include: packages.yml tags=packages
 - include: database.yml tags=database
 - include: config.yml tags=config
+- include: wordpress.yml tags=wordpress

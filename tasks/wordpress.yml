@@ -1,0 +1,35 @@
+---
+- name: "Download wordpress"
+  sudo: yes
+  get_url: "url=http://br.wordpress.org/wordpress-{{ storyteller_wp_version }}-pt_BR.tar.gz dest=/srv/wordpress-{{ storyteller_wp_version }}.tar.gz sha256sum='{{ storyteller_wp_sha256sum }}'"
+
+- name: "Extract archive"
+  sudo: yes
+  unarchive: "src=/srv/wordpress-{{ storyteller_wp_version }}.tar.gz dest=/srv copy=no creates=/srv/wordpress"
+
+- name: "Detect if there is a wp-config file"
+  sudo: yes
+  stat: path=/srv/wordpress/wp-config.php
+  register: wp_config
+
+- name: "Fetch salts for wordpress config"
+  command: curl https://api.wordpress.org/secret-key/1.1/salt/
+  register: "wp_salt"
+  when: not wp_config.stat.exists
+
+- name: "Copy Wordpress config"
+  sudo: yes
+  template: src=wp-config.php dest=/srv/wordpress/
+  when: not wp_config.stat.exists
+
+- name: "Create group wordpress"
+  sudo: yes
+  group: name=wordpress
+
+- name: "Create user wordpress"
+  sudo: yes
+  user: name=wordpress group=wordpress home=/srv/wordpress/
+
+- name: "Change ownership of Wordpress installation"
+  sudo: yes
+  file: path=/srv/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes
