@@ -1,2 +1,2 @@
 ---
-# tasks file for storyteller
+- include: packages.yml tags=packages

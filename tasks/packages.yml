@@ -1,0 +1,17 @@
+---
+- name: "Add Nginx repo"
+  sudo: yes
+  apt_repository: repo='deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main' state=present
+
+- name: "Add Nginx repo key"
+  sudo: yes
+  apt_key: keyserver=keyserver.ubuntu.com id=C300EE8C state=present
+
+- name: "Install Nginx, php5-fpm, Mysql and php5-mysql"
+  sudo: yes
+  apt: "pkg={{item}} state=latest update_cache=true"
+  with_items:
+    - nginx
+    - php5-fpm
+    - mysql-server
+    - php5-mysql
