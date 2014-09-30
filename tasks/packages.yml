@@ -15,3 +15,4 @@
     - php5-fpm
     - mysql-server
     - php5-mysql
+    - python-mysqldb

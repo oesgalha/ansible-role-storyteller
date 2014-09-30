@@ -1,2 +1,8 @@
 ---
-# vars file for storyteller
+# MySQL
+storyteller_mysql_root_password: "{{ lookup('env', 'MYSQL_ROOT_PASS') }}"
+# Wordpress
+storyteller_wp_db_name: wordpress
+storyteller_wp_db_user: wordpress
+storyteller_wp_db_password: "{{ lookup('env', 'WP_DB_PASS') }}"
+storyteller_hostname: localhost

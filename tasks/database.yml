@@ -1,0 +1,19 @@
+---
+- name: "Update mysql root password"
+  mysql_user: "name=root password={{ storyteller_mysql_root_password }}"
+
+- name: "Copy .my.cnf file with root credentials"
+  sudo: yes
+  template: "src=my.cnf.j2 dest=/home/{{ ansible_ssh_user }}/.my.cnf owner={{ ansible_ssh_user }} mode=0600"
+
+- name: "Remove anonymous users"
+  mysql_user: name='' state=absent
+
+- name: "Remove test database and access to it"
+  mysql_db: name=test state=absent
+
+- name: "Create Wordpress database"
+  mysql_db: "name={{ storyteller_wp_db_name }} state=present"
+
+- name: "Create Wordpress database user"
+  mysql_user: "name={{ storyteller_wp_db_user }} password={{ storyteller_wp_db_password }} priv={{ storyteller_wp_db_name }}.*:ALL host='localhost' state=present"
