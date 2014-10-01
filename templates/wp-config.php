@@ -22,7 +22,7 @@ define('DB_NAME', '{{ storyteller_wp_db_name }}');
 define('DB_USER', '{{ storyteller_wp_db_name }}');
 
 /** MySQL database password */
-define('DB_PASSWORD', '{{ storyteller_wp_db_name }}');
+define('DB_PASSWORD', '{{ storyteller_wp_db_password }}');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
