@@ -1,11 +1,11 @@
 ---
 - name: "Download wordpress"
   sudo: yes
-  get_url: "url=http://br.wordpress.org/wordpress-{{ storyteller_wp_version }}-pt_BR.tar.gz dest=/srv/wordpress-{{ storyteller_wp_version }}.tar.gz sha256sum='{{ storyteller_wp_sha256sum }}'"
+  get_url: "url={{ storyteller_wp_file_url }}/{{ storyteller_wp_file }} dest=/srv/{{ storyteller_wp_file }} sha256sum='{{ storyteller_wp_sha256sum }}'"
 
 - name: "Extract archive"
   sudo: yes
-  unarchive: "src=/srv/wordpress-{{ storyteller_wp_version }}.tar.gz dest=/srv copy=no creates=/srv/wordpress"
+  unarchive: "src=/srv/{{ storyteller_wp_file }} dest=/srv copy=no creates=/srv/wordpress"
 
 - name: "Detect if there is a wp-config file"
   sudo: yes

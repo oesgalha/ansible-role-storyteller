@@ -2,7 +2,8 @@
 # MySQL
 storyteller_mysql_root_password: "{{ lookup('env', 'MYSQL_ROOT_PASS') }}"
 # Wordpress
-storyteller_wp_version: "4.0"
+storyteller_wp_file_url: "http://br.wordpress.org"
+storyteller_wp_file: "wordpress-4.0-pt_BR.tar.gz"
 storyteller_wp_sha256sum: "cd2ecbbc50aa2698eb13b01536a9f1f491dac670827d791432dabd94cc4bb28d"
 storyteller_wp_db_name: wordpress
 storyteller_wp_db_user: wordpress
