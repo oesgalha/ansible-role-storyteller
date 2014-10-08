@@ -22,14 +22,6 @@
   template: src=wp-config.php dest=/srv/wordpress/
   when: not wp_config.stat.exists
 
-- name: "Create group wordpress"
-  sudo: yes
-  group: name=wordpress
-
-- name: "Create user wordpress"
-  sudo: yes
-  user: name=wordpress group=wordpress home=/srv/wordpress/
-
 - name: "Change ownership of Wordpress installation"
   sudo: yes
-  file: path=/srv/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes
+  file: path=/srv/wordpress/ owner=www-data group=www-data state=directory recurse=yes
