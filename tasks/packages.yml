@@ -13,6 +13,7 @@
   with_items:
     - nginx
     - php5-fpm
+    - php5-gd
     - mysql-server
     - php5-mysql
     - python-mysqldb
