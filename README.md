@@ -9,14 +9,14 @@ This role will also fetch random salts from the [wordpress salt API](https://api
 Requirements
 ------------
 
-To run this rule in your playbook, you need to set 2 environment variables: MYSQL_ROOT_PASS and WP_DB_PASS.
+To run this role in your playbook, you need to set 2 environment variables: MYSQL_ROOT_PASS and WP_DB_PASS.
 The first one is the desired password to the root user in Mysql. The second one is the password for the wordpress user in Mysql.
 
 Role Variables
 --------------
 
 The password to root user in Mysql, the default value comes from the environment variable MYSQL_ROOT_PASS.
-It's not recomendable to override this variable to a fixed value in the playbook, use a environment variable instead.
+It's not recommended to override this variable to a fixed value in the playbook, use a environment variable instead.
 ```
 storyteller_mysql_root_password: "{{ lookup('env', 'MYSQL_ROOT_PASS') }}"
 ```
@@ -47,7 +47,7 @@ storyteller_wp_db_user: wordpress
 ```
 
 The password to wordpress user in Mysql, the default value comes from the environment variable WP_DB_PASS.
-It's not recomendable to override this variable to a fixed value in the playbook, use a environment variable instead.
+It's not recommended to override this variable to a fixed value in the playbook, use a environment variable instead.
 ```
 storyteller_wp_db_password: "{{ lookup('env', 'WP_DB_PASS') }}"
 ```
